@@ -1,0 +1,11 @@
+requests
+pandas
+numpy
+matplotlib
+seaborn
+ipykernel
+scikit-learn
+torch
+optuna
+mlflow
+dagshub

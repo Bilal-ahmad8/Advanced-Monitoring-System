@@ -1,0 +1,11 @@
+artifacts_root : artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source: metric_data/prometheus_metrics.csv
+  feature_store: artifacts/data_ingestion/feature_store
+  split_store: artifacts/data_ingestion/ingested
+  local_data_file: artifacts/data_ingestion/feature_store/prometheus_metrics.csv
+  train_data_time_interval: 2.25
+  train_ingested_data: artifacts/data_ingestion/ingested/train_data.csv
+  val_ingested_data: artifacts/data_ingestion/ingested/val_data.csv

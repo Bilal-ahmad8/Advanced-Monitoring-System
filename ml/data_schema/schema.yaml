@@ -1,0 +1,23 @@
+COLUMNS:
+  timestamp: object
+  cpu_usage: float64
+  memory_available: float64
+  disk_read: float64
+  disk_read_c: float64
+  disk_read_d: float64
+  disk_read_e: float64
+  disk_write: float64
+  disk_write_c: float64
+  disk_write_d: float64
+  disk_write_e: float64
+  network_receive: float64
+  network_transmit: float64
+
+TARGET_COLUMNS:
+  timestamp: object
+  cpu_usage: float64
+  memory_available: float64
+  disk_read: float64
+  disk_write: float64
+  network_receive: float64
+  network_transmit: float64

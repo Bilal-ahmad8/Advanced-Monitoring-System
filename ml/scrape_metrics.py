@@ -77,7 +77,7 @@ def main():
 
     if combined_df is not None:
         combined_df = combined_df.sort_values("timestamp").reset_index(drop=True)
-        combined_df.to_csv("train_prometheus_metrics2.csv", index=False)
+        combined_df.to_csv("prometheus_metrics.csv", index=False)
         print("Metrics exported to prometheus_metrics.csv")
     else:
         print("No metrics were collected.")

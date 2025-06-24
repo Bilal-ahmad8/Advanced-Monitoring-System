@@ -1,3 +1,4 @@
 venv
-notebooks
-secondary_data
+ml/notebooks
+ml/secondary_data
+ml/artifacts

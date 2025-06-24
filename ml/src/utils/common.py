@@ -1,0 +1,22 @@
+import os, yaml
+from pathlib import Path
+from ensure import ensure_annotations
+from box import ConfigBox
+from box.exceptions import BoxValueError
+
+
+@ensure_annotations
+def read_yaml(path: Path) -> ConfigBox:
+    try:
+        with open(path) as file:
+            content = yaml.safe_load(file)
+        return ConfigBox(content)
+    except BoxValueError:
+        raise ValueError('Yaml File is Empty')
+    except Exception as e:
+        raise e
+
+@ensure_annotations
+def create_directories(path:list):
+    for p in path:
+        os.makedirs(p, exist_ok=True)

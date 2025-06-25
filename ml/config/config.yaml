@@ -9,3 +9,9 @@ data_ingestion:
   train_data_time_interval: 2.25
   train_ingested_data: artifacts/data_ingestion/ingested/train_data.csv
   val_ingested_data: artifacts/data_ingestion/ingested/val_data.csv
+
+data_validation:
+  root_dir: artifacts/data_validation
+  source_train_path: artifacts/data_ingestion/ingested/train_data.csv
+  source_val_path: artifacts/data_ingestion/ingested/val_data.csv
+  status: artifacts/data_validation/status.txt

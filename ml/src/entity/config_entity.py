@@ -17,3 +17,16 @@ class DataValidationConfig:
     source_val_path: Path
     schema : dict
     status: Path
+
+@dataclass
+class DataTransformationConfig:
+    root_dir: Path
+    check_status: Path
+    data_directory: Path
+    object_directory: Path
+    train_ingested_data:Path
+    val_ingested_data: Path
+    target_columns : dict
+    transformed_train_data: Path
+    transformed_val_data: Path
+    preprocessor_path: Path

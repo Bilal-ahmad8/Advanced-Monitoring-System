@@ -3,7 +3,7 @@ from pathlib import Path
 from ensure import ensure_annotations
 from box import ConfigBox
 from box.exceptions import BoxValueError
-
+import pickle
 
 @ensure_annotations
 def read_yaml(path: Path) -> ConfigBox:
@@ -20,3 +20,8 @@ def read_yaml(path: Path) -> ConfigBox:
 def create_directories(path:list):
     for p in path:
         os.makedirs(p, exist_ok=True)
+
+
+def save_binary(value, path):
+    with open(path, 'wb') as f:
+        pickle.dump(value,f)

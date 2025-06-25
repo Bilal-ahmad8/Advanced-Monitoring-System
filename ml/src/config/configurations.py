@@ -1,5 +1,5 @@
 from src.utils.common import read_yaml, create_directories
-from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig)
+from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig)
 from src.constant import *
 
 
@@ -38,3 +38,22 @@ class ConfigurationManager:
             status = config.status,
         )
         return data_validation_config
+    
+    def get_data_transformation_config(self):
+        config = self.config.data_transformation
+        schema = self.schema.TARGET_COLUMNS
+        create_directories([config.root_dir, config.data_directory, config.object_directory])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            check_status=config.check_status,
+            data_directory=config.data_directory,
+            object_directory=config.object_directory,
+            train_ingested_data=config.train_ingested_data,
+            val_ingested_data=config.val_ingested_data,
+            target_columns= schema,
+            transformed_train_data=config.transformed_train_data,
+            transformed_val_data=config.transformed_val_data,
+            preprocessor_path=config.preprocessor_path
+        )
+        return data_transformation_config

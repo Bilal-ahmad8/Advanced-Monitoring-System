@@ -15,3 +15,14 @@ data_validation:
   source_train_path: artifacts/data_ingestion/ingested/train_data.csv
   source_val_path: artifacts/data_ingestion/ingested/val_data.csv
   status: artifacts/data_validation/status.txt
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  check_status: artifacts/data_validation/status.txt
+  data_directory: artifacts/data_transformation/data
+  object_directory: artifacts/data_transformation/object
+  train_ingested_data: artifacts/data_ingestion/ingested/train_data.csv
+  val_ingested_data: artifacts/data_ingestion/ingested/val_data.csv
+  transformed_train_data: artifacts/data_transformation/data/transformed_train.csv
+  transformed_val_data: artifacts/data_transformation/data/transformed_val.csv
+  preprocessor_path: artifacts/data_transformation/object/preprocessor.pkl

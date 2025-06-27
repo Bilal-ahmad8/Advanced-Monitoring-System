@@ -35,8 +35,8 @@ class DataTransformation:
             train_data[features_name] = preprocessor.transform(train_data)
             val_data[features_name] = preprocessor.transform(val_data)
 
-            train_data.to_csv(self.config.transformed_train_data)
-            val_data.to_csv(self.config.transformed_val_data)
+            train_data.to_csv(self.config.transformed_train_data, index=False)
+            val_data.to_csv(self.config.transformed_val_data, index=False)
 
             save_binary(value=preprocessor, path=self.config.preprocessor_path)
 

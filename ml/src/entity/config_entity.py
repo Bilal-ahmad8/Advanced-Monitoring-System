@@ -30,3 +30,12 @@ class DataTransformationConfig:
     transformed_train_data: Path
     transformed_val_data: Path
     preprocessor_path: Path
+
+@dataclass
+class ModelTrainerConfig:
+    root_dir: Path
+    model_directory: Path
+    model_params: dict
+    anomaly_threshhold: int
+    training_data:Path
+    validation_data: Path

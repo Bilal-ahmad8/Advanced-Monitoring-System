@@ -1,13 +1,14 @@
 from src.utils.common import read_yaml, create_directories
-from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig)
+from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig,
+                                       ModelTrainerConfig)
 from src.constant import *
 
 
 class ConfigurationManager:
-    def __init__(self, config=CONFIG_FILE_PATH, schema=SCHEMA_FILE_PATH):
+    def __init__(self, config=CONFIG_FILE_PATH, schema=SCHEMA_FILE_PATH, params = PARAMS_FILE_PATH):
         self.config = read_yaml(config)
         self.schema = read_yaml(schema)
-        #self.params = read_yaml(params)
+        self.params = read_yaml(params)
 
         create_directories([self.config.artifacts_root])
 
@@ -57,3 +58,20 @@ class ConfigurationManager:
             preprocessor_path=config.preprocessor_path
         )
         return data_transformation_config
+    
+
+    def get_model_trainer_config(self):
+        config = self.config.model_trainer
+        params = self.params.model_params
+        threshhold_value = self.params.threshhold.value
+
+        create_directories([config.root_dir])
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            model_directory=config.model_directory,
+            model_params=params,
+            anomaly_threshhold=threshhold_value,
+            training_data=config.training_data,
+            validation_data=config.validation_data
+        )
+        return model_trainer_config

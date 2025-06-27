@@ -38,4 +38,11 @@ class ModelTrainerConfig:
     model_params: dict
     anomaly_threshhold: int
     training_data:Path
+
+@dataclass
+class ModelEvaluationConfig:
+    root_dir: Path
+    metric: Path
+    model_params: dict
+    model_parameters: Path
     validation_data: Path

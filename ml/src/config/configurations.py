@@ -1,6 +1,6 @@
 from src.utils.common import read_yaml, create_directories
 from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig,
-                                       ModelTrainerConfig)
+                                       ModelTrainerConfig, ModelEvaluationConfig)
 from src.constant import *
 
 
@@ -75,3 +75,17 @@ class ConfigurationManager:
             validation_data=config.validation_data
         )
         return model_trainer_config
+    
+    def get_model_evaluation_config(self):
+        config = self.config.model_evaluation
+        params = self.params.model_params
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir= config.root_dir,
+            model_parameters=config.model_parameters,
+            model_params=params,
+            metric= config.metric,
+            validation_data= config.validation_data
+        )
+        return model_evaluation_config

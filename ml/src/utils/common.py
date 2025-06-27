@@ -1,4 +1,4 @@
-import os, yaml
+import os, yaml, json
 from pathlib import Path
 from ensure import ensure_annotations
 from box import ConfigBox
@@ -25,3 +25,9 @@ def create_directories(path:list):
 def save_binary(value, path):
     with open(path, 'wb') as f:
         pickle.dump(value,f)
+
+@ensure_annotations
+def save_json(path: Path, data: dict):
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=4)
+        

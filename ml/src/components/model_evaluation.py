@@ -28,9 +28,7 @@ class ModelEvaluation:
         dataset = CustomDataset(val_data.values, 20)
         valloader = DataLoader(dataset, batch_size=params.batch_size, shuffle=False)
 
-        model = LSTMAutoEncoder(input_dim=6, hidden_dim=params.hidden_dim, num_layers=params.num_layers,biDirect_bool=params.biDirect_bool,
-                                dp_ratio_1=params.dp_ratio_1, dp_ratio_2=params.dp_ratio_2, inside_dp_ratio=params.inside_dp_ratio,
-                                latent_dim=params.latent_dim)
+        model = LSTMAutoEncoder()
         model.load_state_dict(torch.load(self.config.model_parameters, map_location=torch.device('cpu')))
         logger.info('Model Parameters Loaded Succesfully!')
 

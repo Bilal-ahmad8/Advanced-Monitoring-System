@@ -1,8 +1,11 @@
 import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
+from src.utils.common import read_yaml
+from src.constant import PARAMS_FILE_PATH
 
-
+params = read_yaml(PARAMS_FILE_PATH)
+params = params.model_params
 
 torch.manual_seed(42)
 
@@ -25,7 +28,9 @@ class CustomDataset(Dataset):
         return self.x[idx], self.y[idx]
     
 class LSTMAutoEncoder(nn.Module):
-  def __init__(self, input_dim, hidden_dim, num_layers, biDirect_bool, dp_ratio_1, dp_ratio_2,inside_dp_ratio, latent_dim):
+  def __init__(self,input_dim=6, hidden_dim=params.hidden_dim, num_layers=params.num_layers,biDirect_bool=params.biDirect_bool,
+                                dp_ratio_1=params.dp_ratio_1, dp_ratio_2=params.dp_ratio_2, inside_dp_ratio=params.inside_dp_ratio,
+                                latent_dim=params.latent_dim):
     super().__init__()
     self.encoder = nn.LSTM(input_size=input_dim, hidden_size=hidden_dim, num_layers=num_layers,
                            dropout=inside_dp_ratio,batch_first=True, bidirectional=biDirect_bool)

@@ -30,4 +30,8 @@ def save_binary(value, path):
 def save_json(path: Path, data: dict):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
-        
+
+@ensure_annotations       
+def load_binary(path:Path):
+    with open(path, 'rb') as f:
+        return pickle.load(f)

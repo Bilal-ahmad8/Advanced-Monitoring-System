@@ -7,9 +7,9 @@ model_params:
   biDirect_bool: False 
   dp_ratio_1: 0.30000000000000004 
   dp_ratio_2: 0.4 
-  inside_dp_ratio: 0.30000000000000004 
+  inside_dp_ratio: 0.000000000000000
   latent_dim: 16 
   batch_size: 16
 
-threshhold:
+threshold:
   value: 0.04592

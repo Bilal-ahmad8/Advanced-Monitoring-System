@@ -1,0 +1,17 @@
+{
+	"ulid": "01JZTH5WVSHC236G7PEN6W4JN2",
+	"minTime": 1752145774818,
+	"maxTime": 1752148800000,
+	"stats": {
+		"numSamples": 90710,
+		"numSeries": 3937,
+		"numChunks": 3937
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01JZTH5WVSHC236G7PEN6W4JN2"
+		]
+	},
+	"version": 1
+}

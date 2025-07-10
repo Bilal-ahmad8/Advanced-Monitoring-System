@@ -1,17 +1,38 @@
 from src.components.inference.inference import Inferencing
-from pathlib import Path
+import pandas as pd
+import time
+from collections import deque
 
-DATA = Path(r'test\test_prometheus_metrics.csv')
-OUT_PATH = Path(r'test\predicted.csv')
 
-class InferencePipeline:
-    def __init__(self):
-        pass
+SEQUENCE_LENGTH = 20
 
-    def start_inferencing(self, data:Path, data_out:Path):
-        predictor = Inferencing(data=data, output_directory=data_out)
-        predictor.start()
 
 if __name__ == '__main__':
-    obj = InferencePipeline()
-    obj.start_inferencing(data=DATA, data_out=OUT_PATH)
+
+    obj = Inferencing()
+    print("Starting real-time inference loop...")
+    history = [] 
+    seed_df = pd.read_csv("buffer_data.csv")
+    seed_df['timestamp'] = pd.to_datetime(seed_df['timestamp'])
+    history = seed_df.to_dict("records")
+
+    while True:
+        incoming_df = (obj.query_latest_metrics())
+        print(incoming_df)
+        if incoming_df is not None:
+            incoming = incoming_df.to_dict("records")
+        #     # Merging and droping duplicate timestamps
+            combined = {entry["timestamp"]: entry for entry in history + incoming}
+        #     # Sorting by timestamp and keep only latest SEQUENCE_LENGTH
+            history = sorted(combined.values(), key=lambda x: x["timestamp"])[-SEQUENCE_LENGTH:]
+            print(f'Current Data length: {len(history)}')
+
+        if len(history) == SEQUENCE_LENGTH:
+            data = pd.DataFrame(history)
+            score = obj.inference(data=data)
+            print(f'Anomaly score {score}')
+            obj.push_score_to_gateway(score=score)
+        
+        time.sleep(30)
+
+

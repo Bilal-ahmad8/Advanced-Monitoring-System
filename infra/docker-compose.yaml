@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    container_name: prometheus
+    user: "65534:65534"  # UID:GID for `nobody` in Alpine-based images
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/rules:/etc/prometheus/rules:ro
+      - ./prometheus-data:/prometheus-data
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus-data
+      - --web.listen-address=0.0.0.0:9090
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret   # change in prod
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    #user: "197609:197609"
+
+
+  pushgateway:
+    image: prom/pushgateway:v1.6.2
+    container_name: pushgateway
+    ports:
+      - "9091:9091"
+    restart: unless-stopped
+
+  # (Optional) your ML inference container would go here, pushing to Pushgateway
+  ml-inference:
+    build:
+      context: ../ml
+    container_name: ml-inference
+    depends_on:
+      - pushgateway
+      - prometheus
+    environment:
+      - PUSHGATEWAY_URL=http://pushgateway:9091
+      - PROMETHEUS_URL=http://prometheus:9090
+    restart: unless-stopped
+
+volumes:
+  grafana-storage:
+  prometheus_data:

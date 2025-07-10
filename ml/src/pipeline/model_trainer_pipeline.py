@@ -1,4 +1,4 @@
-from src.components.mode_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainer
 from src.config.configurations import ConfigurationManager
 
 class ModelTrainerPipeline:

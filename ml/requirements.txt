@@ -1,0 +1,15 @@
+requests
+prometheus-client
+pandas
+numpy
+matplotlib
+seaborn
+ipykernel
+scikit-learn
+torch
+optuna
+mlflow
+dagshub
+pyYaml
+ensure
+python-box
